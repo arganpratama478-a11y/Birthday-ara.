@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selamat Ulang Tahun</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital@1&family=Plus+Jakarta+Sans:wght@300&display=swap');
+body{margin:0;background:#fff8f9;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:30px 0;font-family:'Plus Jakarta Sans',sans-serif;overflow-x:hidden;overflow-y:auto}
+.card{width:92%;max-width:390px;background:#fff;border-radius:28px;box-shadow:0 20px 60px rgba(0,0,0,.08);overflow:hidden;text-align:center}
+.top{width:100%;height:230px;object-fit:cover;display:block}
+.content{padding:26px 24px}
+.second-photo{display:block;width:100%;max-height:210px;object-fit:cover;border-radius:16px;margin-bottom:20px}
+h1{font-family:'Cormorant Garamond',serif;font-style:italic;color:#a67c52;font-size:32px;margin:0}
+h2{font-family:'Cormorant Garamond',serif;font-style:italic;color:#8c6b4a;font-size:18px;margin:6px 0 14px;font-weight:400}
+#surat{font-size:14.2px;line-height:2.1;color:#5c4e4a;white-space:pre-line;text-align:left;min-height:80px}
+#tanggal{font-size:11px;color:#c9a88a;letter-spacing:1px;margin-top:22px}
+button{margin-top:18px;background:linear-gradient(135deg,#f4a6a6,#e89090);color:#fff;border:0;padding:14px 36px;border-radius:30px;cursor:pointer;box-shadow:0 8px 20px rgba(244,166,166,.5);transition:.2s}
+button.hide{opacity:0;pointer-events:none}
+.snow{position:fixed;top:-10px;color:#d4af37;pointer-events:none;opacity:.6;animation:fall 8s linear infinite}
+@keyframes fall{0%{transform:translateY(-10px);opacity:0}100%{transform:translateY(105vh) rotate(360deg);opacity:0}}
+#musicBtn{position:fixed;bottom:20px;right:20px;background:#fff;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 5px 15px rgba(0,0,0,.1);cursor:pointer;z-index:99}
+</style>
+</head>
+<body>
+
+<div id="musicBtn" onclick="toggleMusic()">🎵</div>
+<audio id="bgm" loop preload="auto" src="https://files.catbox.moe/ocdjdl.mp3"></audio>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+<script>function sn(){const a=document.createElement('div');a.className='snow';a.innerText='✦';a.style.left=Math.random()*100+'vw';a.style.fontSize=(7+Math.random()*9)+'px';a.style.animationDuration=(6+Math.random()*5)+'s';document.body.appendChild(a);setTimeout(()=>a.remove(),8000);}setInterval(sn,700);</script>
+
+<div class="card">
+<img class="top" src="https://i.postimg.cc/phs31JqM/44834711717f47d36a311b0232fc7034.jpg">
+<div class="content">
+<img class="second-photo" src="https://i.postimg.cc/qh1WZxj0/IMG-537e7f20-9fab-453f-af08-d12e5cce31f2.jpg">
+<h1>Selamat Ulang Tahun</h1>
+<h2>Sayang,</h2>
+<p id="surat"></p>
+<button id="btn" onclick="buka()">Buka Suratnya ♡</button>
+<p id="tanggal"></p>
+</div>
+</div>
+
+<script>
+const tgl=new Date();
+document.getElementById('tanggal').innerText=tgl.toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'})+' • Dengan cinta ✨';
+
+const bgm=document.getElementById('bgm');
+let playing=false;
+function toggleMusic(){
+  if(playing){bgm.pause();document.getElementById('musicBtn').innerText='🔇';playing=false}
+  else{bgm.play();document.getElementById('musicBtn').innerText='🎵';playing=true}
+}
+
+const teks=`Selamat ulang tahun, semoga semesta lebih ramah kepadamu.
+Semoga langkahmu selalu menemukan arah, bahkan di tengah gelapnya jalan.
+Semoga hal-hal sederhana tetap mampu membuat hatimu bahagia.
+Dan segala lelah yang tak sempat kau ceritakan, perlahan menemukan jedanya.
+
+Jangan takut pada waktu, sebab tumbuh tak selalu berarti harus berlari.
+Semoga hari-hari mendatang memberimu lebih banyak alasan untuk tersenyum.
+Dan semoga dunia selalu menyisakan tempat yang hangat untukmu pulang.`;
+
+let i=0;
+function buka(){
+  confetti({particleCount:140,spread:85,origin:{y:0.6},colors:['#f4a6a6','#d4af37']});
+  bgm.play().catch(()=>{}); playing=true;
+  document.getElementById('btn').classList.add('hide');
+  const p=document.getElementById('surat');
+  (function ketik(){if(i<teks.length){p.innerHTML+=teks.charAt(i);i++;setTimeout(ketik,28)}})();
+}
+</script>
+</body>
+</html>
